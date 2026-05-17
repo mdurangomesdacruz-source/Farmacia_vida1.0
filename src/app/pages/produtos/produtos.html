@@ -1,0 +1,106 @@
+<header class="header">
+
+    <h1>Farmácia Vida+</h1>
+
+    <div class="search-box">
+        <input type="text" [(ngModel)]="busca" placeholder="Buscar produtos...">
+        <button (click)="buscarProduto()">🔍</button>
+    </div>
+
+    <nav>
+        <a routerLink="/home">Início</a>
+        <a routerLink="/produtos">Produtos</a>
+        <a routerLink="/carrinho">Carrinho</a>
+        <a routerLink="/contato">Contato</a>
+        <a routerLink="/login">Login</a>
+    </nav>
+
+</header>
+
+
+<div class="toast-top" *ngIf="mensagem">
+  {{ mensagem }}
+</div>
+
+<section class="titulo-produtos">
+
+    <h2>Nossos Produtos</h2>
+
+    <p>
+        Qualidade, confiança e cuidado para sua saúde
+    </p>
+
+</section>
+
+<div class="categorias">
+    <button>Medicamentos</button>
+    <button>Vitaminas</button>
+    <button>Higiene</button>
+    <button>Dermocosméticos</button>
+</div>
+
+<div class="grid">
+
+  <mat-card 
+  class="produto-card" 
+  *ngFor="let p of produtosFiltrados; trackBy: trackByProduto">
+
+    <div class="img-container">
+        <img 
+      [src]="
+        p.imagem?.includes('base64') || 
+        p.imagem?.startsWith('data:image')
+          ? p.imagem
+          : 'imagens/' + p.imagem
+      "
+      width="50"
+      alt="{{ p.nome }}"
+    >
+    </div>
+
+    <mat-card-content>
+
+      <h3 class="nome">{{ p.nome }}</h3>
+
+      <p class="categoria">Medicamento</p>
+
+      <p class="preco">R$ {{ p.preco }}</p>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="comprar(p)">
+        🛒 Comprar
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
+</div>
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+            <h3>Principios</h3>
+            <p>Somos uma farmacia que preza pela qualidade e pelo bem-estar dos nossos clientes. Seguindo sempre o codigo de etica imposto pelo CFF</p>
+        </div>
+
+        <div>
+            <h3>Atendimento</h3>
+            <p>08h às 22h</p>
+        </div>
+
+        <div>
+            <h3>Contato</h3>
+            <p>FarmaciaVida@gmail.com</p>
+        </div>
+
+    </div>
+
+    <div class="footer-copy">
+        © 2026 Farmácia Vida+
+    </div>
+
+</footer>

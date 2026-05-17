@@ -1,0 +1,138 @@
+<header class="header">
+    <h1>Painel Administrativo</h1>
+</header>
+
+<section class="section">
+
+    <div class="admin-topo">
+        <h2>Produtos</h2>
+        <button class="btn-add" (click)="abrirNovo()">
+            + Novo Produto
+        </button>
+    </div>
+
+    <div class="tabela-container">
+        <table class="tabela-admin">
+
+            <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let p of produtos; let i = index; trackBy: trackByProduto">
+
+                    <td>
+                          <img 
+                          [src]="
+                          p.imagem?.includes('base64') || 
+                          p.imagem?.startsWith('data:image')
+                            ? p.imagem
+                            : '/imagens/' + p.imagem
+                          "
+                          width="50"
+                          alt="{{ p.nome }}" 
+                          >
+                    </td>
+
+                    <td>{{ p.nome }}</td>
+                    <td>R$ {{ p.preco }}</td>
+
+                    <td>
+                        <button type="button" (click)="abrirEditar(p)">✏️</button>
+                        <button type="button" (click)="abrirExcluir(p)">🗑️</button>
+                    </td>
+
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</section>
+
+<!--MODAL-->
+<div class="modal" *ngIf="modalNovo" (click)="fecharModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <span class="fechar" (click)="fecharModal()">&times;</span>
+
+    <h3>Novo Produto</h3>
+
+    <form (ngSubmit)="salvarNovo()" class="formulario">
+
+      <input type="text" [(ngModel)]="novo.nome" name="nome" placeholder="Nome" required>
+
+      <input type="number" [(ngModel)]="novo.preco" name="preco" placeholder="Preço" required>
+
+      <input type="number" [(ngModel)]="novo.quantidade" name="quantidade" placeholder="Quantidade" required>
+
+      <!-- UPLOAD -->
+      <input type="file" (change)="onFileSelected($event)" accept="image/*">
+
+      <!--PREVIEW -->
+      <img *ngIf="novo.imagem" [src]="novo.imagem" width="80">
+
+      <button type="submit">Salvar</button>
+
+    </form>
+
+  </div>
+</div>
+
+<!--EDITAR -->
+<div class="modal" *ngIf="modalEditar" (click)="fecharModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <span class="fechar" (click)="fecharModal()">&times;</span>
+
+    <h3>Editar Produto</h3>
+
+    <form (ngSubmit)="salvarEdicao()" class="formulario">
+
+      <input type="text" [(ngModel)]="editando.nome" name="nome" required>
+
+      <input type="number" [(ngModel)]="editando.preco" name="preco" required>
+
+      <input type="number" [(ngModel)]="editando.quantidade" name="quantidade" required>
+
+      <!-- INPUT DE UPLOAD -->
+      <input type="file" (change)="onFileSelectedEditar($event)" accept="image/*">
+
+      <!-- PREVIEW -->
+      <img *ngIf="editando.imagem" [src]="editando.imagem" width="80">
+
+      <button type="submit">Salvar</button>
+
+    </form>
+
+  </div>
+</div>
+
+<!-- MODAL EXCLUIR -->
+<div class="modal" *ngIf="modalExcluir" (click)="fecharModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+
+    <span class="fechar" (click)="fecharModal()">&times;</span>
+
+    <h3>Excluir Produto</h3>
+
+    <form (ngSubmit)="confirmarExclusao()" class="formulario">
+
+      <textarea 
+        [(ngModel)]="motivo" 
+        name="motivo" 
+        placeholder="Motivo da exclusão" 
+        required>
+      </textarea>
+
+      <button type="submit">🗑️ Excluir</button>
+
+    </form>
+
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<header class="header">
+
+    <h1>Farmácia Vida+</h1>
+
+    <div class="search-box">
+        <input type="text" [(ngModel)]="busca" placeholder="Buscar produtos...">
+        <button (click)="buscarProduto()">🔍</button>
+    </div>
+
+    <nav>
+        <a routerLink="/">Início</a>
+        <a routerLink="/produtos">Produtos</a>
+        <a routerLink="/carrinho">Carrinho</a>
+        <a routerLink="/contato">Contato</a>
+        <a routerLink="/login">Login</a>
+    </nav>
+
+</header>
+
+<section class="section">
+    <h2>Seu Carrinho</h2>
+
+    <div class="carrinho-container">
+
+        <div class="lista-produtos">
+
+            <ul>
+                <li *ngFor="let item of carrinho; let i = index">
+
+                    {{ item.nome }} - R$ {{ item.preco }}
+
+                    <button (click)="remover(i)">❌</button>
+
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="resumo">
+            <h3>Resumo do Pedido</h3>
+
+            <p>Total: R$ {{ total }}</p>
+
+            <button class="btn-finalizar" (click)="finalizar()">
+                Finalizar Compra
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div>
+            <h3>Principios</h3>
+            <p>Somos uma farmacia que preza pela qualidade e pelo bem-estar dos nossos clientes. Seguindo sempre o codigo de etica imposto pelo CFF</p>
+        </div>
+        <div>
+            <h3>Atendimento</h3>
+            <p>08h às 22h</p>
+        </div>
+        <div>
+            <h3>Contato</h3>
+            <p>FarmaciaVida@gmail.com</p>
+        </div>
+    </div>
+    <p>© 2026 Farmácia Vida+</p>
+</footer>

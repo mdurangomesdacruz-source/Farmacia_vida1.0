@@ -1,0 +1,59 @@
+<div class="login-container">
+
+    <div class="login-card">
+
+        <h1>Login</h1>
+
+        <form class="formulario" (ngSubmit)="entrar()">
+
+            <div class="campo">
+
+                <label>Tipo de acesso</label>
+
+                <select [(ngModel)]="tipo" name="tipo" required>
+
+                    <option value="cliente">Cliente</option>
+
+                    <option value="admin">Administrador</option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <input 
+                    type="email" 
+                    [(ngModel)]="email"
+                    name="email"
+                    placeholder="Email" 
+                    required
+                >
+
+            </div>
+
+            <div class="campo">
+
+                <input 
+                    type="password" 
+                    [(ngModel)]="senha"
+                    name="senha"
+                    placeholder="Senha" 
+                    required
+                >
+
+            </div>
+
+            <div class="campo">
+
+                <button type="submit">
+                    Entrar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
